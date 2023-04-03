@@ -49,7 +49,8 @@ class AlbumBuilder extends NSQueryBuilder
 			($columns === ['*'] || $columns === ['albums.*']) &&
 			($baseQuery->columns === ['*'] || $baseQuery->columns === ['albums.*'] || $baseQuery->columns === null)
 		) {
-			$isAdmin = (Auth::user()?->may_administrate === true);
+			$isAdmin = (Auth::user() !== null);
+			// $isAdmin = (Auth::user()?->may_administrate === true);
 			/** @var int|null $userID */
 			$userID = Auth::id();
 

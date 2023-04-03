@@ -55,7 +55,8 @@ class AlbumQueryPolicy
 	{
 		$this->prepareModelQueryOrFail($query);
 
-		if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
+		// if (Auth::user()?->may_administrate === true) {
 			return $query;
 		}
 
@@ -163,7 +164,8 @@ class AlbumQueryPolicy
 	{
 		$this->prepareModelQueryOrFail($query);
 
-		if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
+		// if (Auth::user()?->may_administrate === true) {
 			return $query;
 		}
 
@@ -248,7 +250,8 @@ class AlbumQueryPolicy
 			throw new LycheeInvalidArgumentException('the given query does not query for albums');
 		}
 
-		if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
+		// if (Auth::user()?->may_administrate === true) {
 			return $query;
 		}
 
