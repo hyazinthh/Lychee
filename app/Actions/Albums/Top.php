@@ -84,29 +84,29 @@ class Top
 		$query = $this->albumQueryPolicy
 			->applyVisibilityFilter(Album::query()->whereIsRoot());
 
-		$userID = Auth::id();
-		if ($userID !== null) {
-			// For authenticated users we group albums by ownership.
-			$albums = (new SortingDecorator($query))
-				->orderBy(ColumnSortingType::OWNER_ID, OrderSortingType::ASC)
-				->orderBy($this->sorting->column, $this->sorting->order)
-				->get();
+		// $userID = Auth::id();
+		// if ($userID !== null) {
+		// 	// For authenticated users we group albums by ownership.
+		// 	$albums = (new SortingDecorator($query))
+		// 		->orderBy(ColumnSortingType::OWNER_ID, OrderSortingType::ASC)
+		// 		->orderBy($this->sorting->column, $this->sorting->order)
+		// 		->get();
 
-			/**
-			 * @var BaseCollection<Album> $a
-			 * @var BaseCollection<Album> $b
-			 */
-			list($a, $b) = $albums->partition(fn ($album) => $album->owner_id === $userID);
+		// 	/**
+		// 	 * @var BaseCollection<Album> $a
+		// 	 * @var BaseCollection<Album> $b
+		// 	 */
+		// 	list($a, $b) = $albums->partition(fn ($album) => $album->owner_id === $userID);
 
-			return new TopAlbumsResource($smartAlbums, $tagAlbums, $a->values(), $b->values());
-		} else {
-			// For anonymous users we don't want to implicitly expose
-			// ownership via sorting.
-			$albums = (new SortingDecorator($query))
-				->orderBy($this->sorting->column, $this->sorting->order)
-				->get();
+		// 	return new TopAlbumsResource($smartAlbums, $tagAlbums, $a->values(), $b->values());
+		// } else {
+		// For anonymous users we don't want to implicitly expose
+		// ownership via sorting.
+		$albums = (new SortingDecorator($query))
+			->orderBy($this->sorting->column, $this->sorting->order)
+			->get();
 
-			return new TopAlbumsResource($smartAlbums, $tagAlbums, $albums);
-		}
+		return new TopAlbumsResource($smartAlbums, $tagAlbums, $albums);
+		// }
 	}
 }
