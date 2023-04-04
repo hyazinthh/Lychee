@@ -65,19 +65,19 @@ class Tree
 		$albums = $query->get();
 		/** @var ?NsCollection<Album> $sharedAlbums */
 		$sharedAlbums = null;
-		$userID = Auth::id();
-		if ($userID !== null) {
-			// ATTENTION:
-			// For this to work correctly, it is crucial that all child albums
-			// below each top-level album have the same owner!
-			// Otherwise, this partitioning tears apart albums of the same
-			// (sub)-tree and then `toTree` will return garbage as it does
-			// not find connected paths within `$albums` or `$sharedAlbums`,
-			// resp.
-			/** @var NsCollection<Album> $albums */
-			/** @var ?NsCollection<Album> $sharedAlbums */
-			list($albums, $sharedAlbums) = $albums->partition(fn (Album $album) => $album->owner_id === $userID);
-		}
+		// $userID = Auth::id();
+		// if ($userID !== null) {
+		// 	// ATTENTION:
+		// 	// For this to work correctly, it is crucial that all child albums
+		// 	// below each top-level album have the same owner!
+		// 	// Otherwise, this partitioning tears apart albums of the same
+		// 	// (sub)-tree and then `toTree` will return garbage as it does
+		// 	// not find connected paths within `$albums` or `$sharedAlbums`,
+		// 	// resp.
+		// 	/** @var NsCollection<Album> $albums */
+		// 	/** @var ?NsCollection<Album> $sharedAlbums */
+		// 	list($albums, $sharedAlbums) = $albums->partition(fn (Album $album) => $album->owner_id === $userID);
+		// }
 
 		// We must explicitly pass `null` as the ID of the root album
 		// as there are several top-level albums below root.
