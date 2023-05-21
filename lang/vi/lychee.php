@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Thông tin hệ thống',
 	'DIAGNOSTICS_GET_SIZE' => 'Xem dung lượng đã dùng',
 	'LOGS' => 'Xem nhật ký thay đổi',
-	'CLEAN_LOGS' => 'Xóa bớt nhật ký',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Thoát',
 	'UPDATE_AVAILABLE' => 'Có phiên bản mới!',
 	'MIGRATION_AVAILABLE' => 'Có thể sang chuyển hệ thống được rồi!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Lúc tạo album',
 	'SORT_ALBUM_SELECT_2' => 'Tên',
 	'SORT_ALBUM_SELECT_3' => 'Mô tả',
-	'SORT_ALBUM_SELECT_4' => 'Chia sẻ công cộng',
 	'SORT_ALBUM_SELECT_5' => 'Lần chụp gần nhất',
 	'SORT_ALBUM_SELECT_6' => 'Lần chụp lâu nhất',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Thay đổi ngôn ngữ trên Lychee cho:',
 	'LANG_TITLE' => 'Thay đổi ngôn ngữ',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

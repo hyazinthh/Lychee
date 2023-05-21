@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => '诊断',
 	'DIAGNOSTICS_GET_SIZE' => '请求空间占用信息',
 	'LOGS' => '查看日志',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => '注销登录',
 	'UPDATE_AVAILABLE' => '可用更新！',
 	'MIGRATION_AVAILABLE' => '可用迁移！',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => '创建时间',
 	'SORT_ALBUM_SELECT_2' => '标题',
 	'SORT_ALBUM_SELECT_3' => '描述',
-	'SORT_ALBUM_SELECT_4' => '公开',
 	'SORT_ALBUM_SELECT_5' => '最新',
 	'SORT_ALBUM_SELECT_6' => '最老',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => '将 Lychee 的语言修改为：',
 	'LANG_TITLE' => '修改语言',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

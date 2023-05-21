@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Diagnose',
 	'DIAGNOSTICS_GET_SIZE' => 'Speicherplatz-Nutzung abrufen',
 	'LOGS' => 'Logs anzeigen',
-	'CLEAN_LOGS' => 'Unnötiges aufräumen',
-	'CLEAR' => 'Leeren',
 	'SIGN_OUT' => 'Abmelden',
 	'UPDATE_AVAILABLE' => 'Update verfügbar!',
 	'MIGRATION_AVAILABLE' => 'Migration verfügbar!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Erstellungszeitpunkt',
 	'SORT_ALBUM_SELECT_2' => 'Titel',
 	'SORT_ALBUM_SELECT_3' => 'Beschreibung',
-	'SORT_ALBUM_SELECT_4' => 'Öffentlich',
 	'SORT_ALBUM_SELECT_5' => 'Neuestes Aufnahmedatum',
 	'SORT_ALBUM_SELECT_6' => 'Ältestes Aufnahmedatum',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Sprache für Lychee ändern:',
 	'LANG_TITLE' => 'Sprache festlegen',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Intelligentes Album „Zuletzt benutzt“ für anonyme Nutzer aktivieren',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Intelligentes Album „Favoriten“ für anonyme Nutzer aktivieren',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Intelligentes Album „An diesem Tag“ für anonyme Nutzer aktivieren',
 
 	'CSS_TEXT' => 'CSS personalisieren:',
 	'CSS_TITLE' => 'CSS ändern',

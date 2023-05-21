@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\ExpectationFailedException;
 use function Safe\json_decode;
 use Tests\AbstractTestCase;
-use Tests\Feature\Lib\AlbumsUnitTest;
-use Tests\Feature\Lib\SessionUnitTest;
-use Tests\Feature\Lib\UsersUnitTest;
+use Tests\Feature\LibUnitTests\AlbumsUnitTest;
+use Tests\Feature\LibUnitTests\SessionUnitTest;
+use Tests\Feature\LibUnitTests\UsersUnitTest;
 use Tests\Feature\Traits\InteractWithSmartAlbums;
 
 class UsersTest extends AbstractTestCase
@@ -353,7 +353,7 @@ class UsersTest extends AbstractTestCase
 			], ]);
 
 		// update Admin user to non valid rights
-		$admin = User::findOrFail(1);
+		$admin = User::query()->findOrFail(1);
 		$admin->may_upload = false;
 		$admin->may_edit_own_settings = true;
 		$admin->save();

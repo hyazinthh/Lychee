@@ -2,24 +2,27 @@
 
 namespace App\Models;
 
+use App\Constants\AccessPermissionConstants as APC;
 use App\Constants\RandomID;
 use App\Contracts\Models\HasRandomID;
-use App\DTO\AlbumProtectionPolicy;
 use App\DTO\PhotoSortingCriterion;
 use App\Enum\ColumnSortingType;
 use App\Enum\OrderSortingType;
+use App\Models\Builders\BaseAlbumImplBuilder;
 use App\Models\Extensions\HasAttributesPatch;
 use App\Models\Extensions\HasBidirectionalRelationships;
 use App\Models\Extensions\HasRandomIDAndLegacyTimeBasedID;
 use App\Models\Extensions\ThrowsConsistentExceptions;
 use App\Models\Extensions\ToArrayThrowsNotImplemented;
-use App\Models\Extensions\UseFixedQueryBuilder;
 use App\Models\Extensions\UTCBasedTimes;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class BaseAlbumImpl.
@@ -94,16 +97,41 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null                $description
  * @property int                        $owner_id
  * @property User                       $owner
- * @property bool                       $is_public
- * @property bool                       $is_link_required
  * @property bool                       $is_nsfw
- * @property bool                       $grants_full_photo_access
- * @property bool                       $grants_download
  * @property Collection                 $shared_with
- * @property string|null                $password
- * @property bool                       $is_password_required
+ * @property int|null                   $shared_with_count
  * @property PhotoSortingCriterion|null $sorting
- * @property AlbumProtectionPolicy      $policy
+ * @property string|null                $sorting_col
+ * @property string|null                $sorting_order
+ * @property hasMany<AccessPermission>  $access_permissions
+ * @property AccessPermission|null      $current_permissions
+ * @property AccessPermission|null      $public_permissions
+ * @property int|null                   $access_permissions_count
+ * @property AccessPermission|null      $current_user_permissions
+ *
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl addSelect($column)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl join(string $table, string $first, string $operator = null, string $second = null, string $type = 'inner', string $where = false)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl joinSub($query, $as, $first, $operator = null, $second = null, $type = 'inner', $where = false)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl leftJoin(string $table, string $first, string $operator = null, string $second = null)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl newModelQuery()
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl newQuery()
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl orderBy($column, $direction = 'asc')
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl query()
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl select($columns = [])
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereCreatedAt($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereDescription($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereId($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereIn(string $column, string $values, string $boolean = 'and', string $not = false)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereIsNsfw($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereLegacyId($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereNotIn(string $column, string $values, string $boolean = 'and')
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereOwnerId($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereSortingCol($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereSortingOrder($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereTitle($value)
+ * @method static BaseAlbumImplBuilder|BaseAlbumImpl whereUpdatedAt($value)
+ *
+ * @mixin \Eloquent
  */
 class BaseAlbumImpl extends Model implements HasRandomID
 {
@@ -112,8 +140,6 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	use ThrowsConsistentExceptions;
 	use UTCBasedTimes;
 	use HasBidirectionalRelationships;
-	/** @phpstan-use UseFixedQueryBuilder<BaseAlbumImpl> */
-	use UseFixedQueryBuilder;
 	use ToArrayThrowsNotImplemented;
 
 	protected $table = 'base_albums';
@@ -151,14 +177,8 @@ class BaseAlbumImpl extends Model implements HasRandomID
 		'owner_id' => 0,
 		'sorting_col' => null,
 		'sorting_order' => null,
-		// Security attributes
+		// Special visibility attributes
 		'is_nsfw' => false,
-		'is_public' => false,
-		'is_link_required' => false,
-		'password' => null,
-		// Permissions
-		'grants_full_photo_access' => true,
-		'grants_download' => false,
 	];
 
 	/**
@@ -169,8 +189,6 @@ class BaseAlbumImpl extends Model implements HasRandomID
 		RandomID::LEGACY_ID_NAME => RandomID::LEGACY_ID_TYPE,
 		'created_at' => 'datetime',
 		'updated_at' => 'datetime',
-		'is_public' => 'boolean',
-		'is_link_required' => 'boolean',
 		'is_nsfw' => 'boolean',
 		'owner_id' => 'integer',
 	];
@@ -178,7 +196,17 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	/**
 	 * The relationships that should always be eagerly loaded by default.
 	 */
-	protected $with = ['owner'];
+	protected $with = ['owner', 'access_permissions', 'current_user_permissions', 'public_permissions'];
+
+	/**
+	 * @param $query
+	 *
+	 * @return BaseAlbumImplBuilder
+	 */
+	public function newEloquentBuilder($query): BaseAlbumImplBuilder
+	{
+		return new BaseAlbumImplBuilder($query);
+	}
 
 	/**
 	 * Returns the relationship between an album and its owner.
@@ -187,7 +215,7 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	 */
 	public function owner(): BelongsTo
 	{
-		return $this->belongsTo('App\Models\User', 'owner_id', 'id');
+		return $this->belongsTo(User::class, 'owner_id', 'id');
 	}
 
 	/**
@@ -199,34 +227,46 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	public function shared_with(): BelongsToMany
 	{
 		return $this->belongsToMany(
-			'App\Models\User',
-			'user_base_album',
-			'base_album_id',
-			'user_id'
-		);
+			User::class,
+			APC::ACCESS_PERMISSIONS,
+			APC::BASE_ALBUM_ID,
+			APC::USER_ID
+		)->wherePivotNotNull('user_id');
 	}
 
-	protected function getGrantsFullPhotoAttribute(bool $value): bool
+	/**
+	 * Returns the relationship between an album and its associated permissions.
+	 *
+	 * @return hasMany
+	 */
+	public function access_permissions(): hasMany
 	{
-		if ($this->is_public) {
-			return $value;
-		} else {
-			return Configs::getValueAsBool('grants_full_photo_access');
-		}
+		return $this->hasMany(AccessPermission::class, APC::BASE_ALBUM_ID, 'id');
 	}
 
-	protected function getIsDownloadableAttribute(bool $value): bool
+	/**
+	 * Returns the relationship between an album and its associated current user permissions.
+	 *
+	 * @return HasOne
+	 */
+	public function current_user_permissions(): HasOne
 	{
-		if ($this->is_public) {
-			return $value;
-		} else {
-			return Configs::getValueAsBool('grants_download');
-		}
+		return $this->access_permissions()
+			->one()
+			->whereNotNull(APC::USER_ID)
+			->where(APC::USER_ID, '=', Auth::id());
 	}
 
-	protected function getIsPasswordRequiredAttribute(): bool
+	/**
+	 * Returns the relationship between an album and its associated public permissions.
+	 *
+	 * @return HasOne
+	 */
+	public function public_permissions(): HasOne
 	{
-		return $this->password !== null && $this->password !== '';
+		return $this->access_permissions()
+			->one()
+			->whereNull(APC::USER_ID);
 	}
 
 	protected function getSortingAttribute(): ?PhotoSortingCriterion
@@ -245,31 +285,5 @@ class BaseAlbumImpl extends Model implements HasRandomID
 	{
 		$this->attributes['sorting_col'] = $sorting?->column->value;
 		$this->attributes['sorting_order'] = $sorting?->order->value;
-	}
-
-	protected function setPolicyAttribute(AlbumProtectionPolicy $protectionPolicy): void
-	{
-		// Security attributes of the album itself independent of a particular user
-		// Note: The first one (`is_public`) will become implicit in the future when the following three attributes are
-		// move to a separate table for sharing albums with anonymous users
-		$this->attributes['is_public'] = $protectionPolicy->is_public;
-		$this->attributes['is_nsfw'] = $protectionPolicy->is_nsfw;
-		$this->attributes['is_link_required'] = $protectionPolicy->is_link_required;
-
-		// (Future) permissions on an album-user relation.
-		// Note: For the time being these are still "globally" defined on the album for all users, but they will be
-		// moved to a separate table for sharing albums with users.
-		$this->attributes['grants_full_photo_access'] = $protectionPolicy->grants_full_photo_access;
-		$this->attributes['grants_download'] = $protectionPolicy->grants_download;
-	}
-
-	/**
-	 * Provide the policy attributes for said album.
-	 *
-	 * @return AlbumProtectionPolicy
-	 */
-	protected function getPolicyAttribute(): AlbumProtectionPolicy
-	{
-		return AlbumProtectionPolicy::ofBaseAlbumImplementation($this);
 	}
 }

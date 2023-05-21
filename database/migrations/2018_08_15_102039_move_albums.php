@@ -1,9 +1,9 @@
 <?php
 
 use App\Facades\Helpers;
-use App\Models\Logs;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use function Safe\date;
 use Safe\Exceptions\DatetimeException;
@@ -11,10 +11,8 @@ use Safe\Exceptions\DatetimeException;
 return new class() extends Migration {
 	/**
 	 * Run the migrations.
-	 *
-	 * @return void
 	 */
-	public function up()
+	public function up(): void
 	{
 		if (DB::table('albums')->count('id') === 0) {
 			if (Schema::hasTable(env('DB_OLD_LYCHEE_PREFIX', '') . 'lychee_albums')) {
@@ -40,19 +38,17 @@ return new class() extends Migration {
 					]);
 				}
 			} else {
-				Logs::notice(__FUNCTION__, __LINE__, env('DB_OLD_LYCHEE_PREFIX', '') . 'lychee_albums does not exist!');
+				Log::notice(__FUNCTION__ . ':' . __LINE__ . ' ' . env('DB_OLD_LYCHEE_PREFIX', '') . 'lychee_albums does not exist!');
 			}
 		} else {
-			Logs::notice(__FUNCTION__, __LINE__, 'albums is not empty.');
+			Log::notice(__FUNCTION__ . ':' . __LINE__ . ' albums is not empty.');
 		}
 	}
 
 	/**
 	 * Reverse the migrations.
-	 *
-	 * @return void
 	 */
-	public function down()
+	public function down(): void
 	{
 		if (Schema::hasTable('lychee_albums')) {
 			Schema::disableForeignKeyConstraints();

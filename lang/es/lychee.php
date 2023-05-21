@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Diagnóstico',
 	'DIAGNOSTICS_GET_SIZE' => 'Pedir uso de espacio',
 	'LOGS' => 'Mostrar Registros',
-	'CLEAN_LOGS' => 'Limpiar Ruido',
-	'CLEAR' => 'Limpiar',
 	'SIGN_OUT' => 'Cerrar Sesión',
 	'UPDATE_AVAILABLE' => '¡Actualización disponible!',
 	'MIGRATION_AVAILABLE' => 'Migración disponible!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Tiempo de creación',
 	'SORT_ALBUM_SELECT_2' => 'Título',
 	'SORT_ALBUM_SELECT_3' => 'Descripción',
-	'SORT_ALBUM_SELECT_4' => 'Público',
 	'SORT_ALBUM_SELECT_5' => 'Última fecha de toma',
 	'SORT_ALBUM_SELECT_6' => 'La fecha de toma más antigua',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Cambiar el idioma Lychee para:',
 	'LANG_TITLE' => 'Cambiar idioma',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Rendre l\'album "Recent" accessible a tous publics',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

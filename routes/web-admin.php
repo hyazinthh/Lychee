@@ -23,7 +23,9 @@ if (config('app.force_https')) {
 
 Route::get('/phpinfo', [IndexController::class, 'phpinfo']);
 
-Route::get('/Logs', [LogController::class, 'view']);
+Route::get('/Jobs', [JobController::class, 'view']);
+
+Route::get('/Permissions', [DiagnosticsController::class, 'getFullAccessPermissions']);
 
 // Traditionally, the diagnostic page has been accessible by anybody
 // While this might be helpful for debugging purposes if the setup is so

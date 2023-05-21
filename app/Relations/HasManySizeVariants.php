@@ -20,6 +20,7 @@ class HasManySizeVariants extends HasMany
 	public function __construct(Photo $owningPhoto)
 	{
 		parent::__construct(
+			/** @phpstan-ignore-next-line  */
 			SizeVariant::query(),
 			$owningPhoto,
 			'photo_id',
@@ -47,7 +48,7 @@ class HasManySizeVariants extends HasMany
 		$parent = $this->parent;
 
 		return new SizeVariants($parent,
-			is_null($this->getParentKey()) ?
+			is_null($this->getParentKey()) ? // @phpstan-ignore-line
 				$this->related->newCollection() :
 				$this->query->get()
 		);
@@ -67,7 +68,7 @@ class HasManySizeVariants extends HasMany
 		foreach ($models as $model) {
 			$model->setRelation(
 				$relation,
-				new SizeVariants($model, $this->related->newCollection())
+				new SizeVariants($model, $this->related->newCollection())  // @phpstan-ignore-line
 			);
 		}
 
@@ -98,7 +99,7 @@ class HasManySizeVariants extends HasMany
 		/** @var Photo $model */
 		foreach ($models as $model) {
 			if (isset($dictionary[$key = $this->getDictionaryKey($model->getAttribute($this->localKey))])) {
-				/** @var Collection $childrenOfModel */
+				/** @var Collection<SizeVariant> $childrenOfModel */
 				$childrenOfModel = $this->getRelationValue($dictionary, $key, 'many');
 				$model->setRelation($relation, new SizeVariants($model, $childrenOfModel));
 			}

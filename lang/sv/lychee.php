@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Diagnostik',
 	'DIAGNOSTICS_GET_SIZE' => 'Request space usage',
 	'LOGS' => 'Visa logfilen',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Logga ut',
 	'UPDATE_AVAILABLE' => 'En uppdatering finns!',
 	'MIGRATION_AVAILABLE' => 'Migration available!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'skapelsetid',
 	'SORT_ALBUM_SELECT_2' => 'titel',
 	'SORT_ALBUM_SELECT_3' => 'beskrivning',
-	'SORT_ALBUM_SELECT_4' => 'publikt',
 	'SORT_ALBUM_SELECT_5' => 'senaste datum',
 	'SORT_ALBUM_SELECT_6' => 'äldsta datum',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Ändra språket i Lychee till:',
 	'LANG_TITLE' => 'Spara ändringen av språket',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

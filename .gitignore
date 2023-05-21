@@ -37,3 +37,8 @@ installed.log
 storage/bootstrap/cache/*
 
 composer.phar
+storage/image-jobs/*
+
+sync/*
+backup.sql
+reset.sh

@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Diagnostikk',
 	'DIAGNOSTICS_GET_SIZE' => 'Hent diskbruk',
 	'LOGS' => 'Vis Logg',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Logg Ut',
 	'UPDATE_AVAILABLE' => 'Oppdatering er tilgjengelig!',
 	'MIGRATION_AVAILABLE' => 'Migrering er tilgjengelig!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Opprettelsestid',
 	'SORT_ALBUM_SELECT_2' => 'Tittel',
 	'SORT_ALBUM_SELECT_3' => 'Beskrivelse',
-	'SORT_ALBUM_SELECT_4' => 'Offentlig',
 	'SORT_ALBUM_SELECT_5' => 'Seneste fangstdato',
 	'SORT_ALBUM_SELECT_6' => 'Eldste fangstdato',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Endre språk for Lychee til:',
 	'LANG_TITLE' => 'Lagre innstilling for språk',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

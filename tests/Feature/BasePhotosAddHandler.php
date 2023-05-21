@@ -15,8 +15,12 @@ namespace Tests\Feature;
 use App\Models\Configs;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use function Safe\date;
+use function Safe\file_get_contents;
+use function Safe\file_put_contents;
 use Tests\AbstractTestCase;
 use Tests\Feature\Base\BasePhotoTest;
+use Tests\Feature\Constants\TestConstants;
 
 /**
  * Contains all tests for adding photos to Lychee which involve the image
@@ -35,7 +39,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	public function testSimpleUploadToRoot(): void
 	{
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_NIGHT_IMAGE)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_NIGHT_IMAGE)
 		);
 		/*
 		 * Check some Exif data
@@ -56,7 +60,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			'taken_at' => $taken_at->format('Y-m-d\TH:i:sP'),
 			'taken_at_orig_tz' => $taken_at->getTimezone()->getName(),
 			'title' => 'night',
-			'type' => AbstractTestCase::MIME_TYPE_IMG_JPEG,
+			'type' => TestConstants::MIME_TYPE_IMG_JPEG,
 			'size_variants' => [
 				'thumb' => ['width' => 200, 'height' => 200],
 				'thumb2x' => ['width' => 400, 'height' => 400],
@@ -79,7 +83,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_ORIENTATION_90)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_ORIENTATION_90)
 		);
 
 		/*
@@ -104,7 +108,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_ORIENTATION_180)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_ORIENTATION_180)
 		);
 
 		/*
@@ -129,7 +133,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_ORIENTATION_270)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_ORIENTATION_270)
 		);
 
 		/*
@@ -154,7 +158,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_ORIENTATION_HFLIP)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_ORIENTATION_HFLIP)
 		);
 
 		/*
@@ -179,7 +183,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_ORIENTATION_VFLIP)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_ORIENTATION_VFLIP)
 		);
 
 		/*
@@ -198,7 +202,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	{
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_PNG)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_PNG)
 		));
 		$this->assertStringEndsWith('.png', $photo->size_variants->original->url);
 	}
@@ -207,7 +211,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	{
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_GIF)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_GIF)
 		));
 		$this->assertStringEndsWith('.gif', $photo->size_variants->original->url);
 	}
@@ -216,7 +220,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	{
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_WEBP)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_WEBP)
 		));
 		$this->assertStringEndsWith('.webp', $photo->size_variants->original->url);
 	}
@@ -232,11 +236,11 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_TRAIN_IMAGE)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_TRAIN_IMAGE)
 		));
 		/** @var \App\Models\Photo $video */
 		$video = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_TRAIN_VIDEO),
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_TRAIN_VIDEO),
 			null,
 			200
 		));
@@ -258,11 +262,11 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 
 		/** @var \App\Models\Photo $video */
 		$video = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_TRAIN_VIDEO)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_TRAIN_VIDEO)
 		));
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_TRAIN_IMAGE),
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_TRAIN_IMAGE),
 			null,
 			200 // associated image to video.
 		));
@@ -287,7 +291,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 
 		/** @var \App\Models\Photo $photo */
 		$photo = static::convertJsonToObject($this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_GMP_IMAGE)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_GMP_IMAGE)
 		));
 
 		$this->assertStringEndsWith('.mov', $photo->live_photo_url);
@@ -315,17 +319,17 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasExifToolOrSkip();
 		$this->assertHasFFMpegOrSkip();
 
-		DB::table('logs')->delete();
+		file_put_contents(storage_path('logs/notice-' . date('Y-m-d') . '.log'), '');
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_GMP_BROKEN_IMAGE)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_GMP_BROKEN_IMAGE)
 		);
 		// Size variants are generated, because they are extracted from the
 		// still part of the GMP, not the video part.
 		$response->assertJson([
 			'album_id' => null,
 			'title' => 'google_motion_photo_broken',
-			'type' => AbstractTestCase::MIME_TYPE_IMG_JPEG,
+			'type' => TestConstants::MIME_TYPE_IMG_JPEG,
 			'size_variants' => [
 				'original' => ['width' => 2016, 'height' => 1512],
 				'medium2x' => null,
@@ -338,10 +342,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			'live_photo_url' => null,
 		]);
 
-		$logCount = DB::table('logs')
-			->where('text', 'like', '%ffprobe%failed%')
-			->count();
-		self::assertNotEquals(0, $logCount);
+		self::assertNotEmpty(file_get_contents(storage_path('logs/notice-' . date('Y-m-d') . '.log')));
 	}
 
 	/**
@@ -355,12 +356,12 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		$this->assertHasFFMpegOrSkip();
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_GAMING_VIDEO)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_GAMING_VIDEO)
 		);
 		$response->assertJson([
 			'album_id' => null,
 			'title' => 'gaming',
-			'type' => AbstractTestCase::MIME_TYPE_VID_MP4,
+			'type' => TestConstants::MIME_TYPE_VID_MP4,
 			'size_variants' => [
 				'thumb' => [
 					'width' => 200,
@@ -394,21 +395,21 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	 */
 	public function testVideoUploadWithoutFFmpeg(): void
 	{
-		$hasExifTool = Configs::getValueAsInt(self::CONFIG_HAS_EXIF_TOOL);
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, 0);
+		$hasExifTool = Configs::getValueAsInt(TestConstants::CONFIG_HAS_EXIF_TOOL);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, 0);
 
-		$hasFFMpeg = Configs::getValueAsInt(AbstractTestCase::CONFIG_HAS_FFMPEG);
-		Configs::set(AbstractTestCase::CONFIG_HAS_FFMPEG, 0);
+		$hasFFMpeg = Configs::getValueAsInt(TestConstants::CONFIG_HAS_FFMPEG);
+		Configs::set(TestConstants::CONFIG_HAS_FFMPEG, 0);
 
-		DB::table('logs')->delete();
+		file_put_contents(storage_path('logs/notice-' . date('Y-m-d') . '.log'), '');
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_GAMING_VIDEO)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_GAMING_VIDEO)
 		);
 		$response->assertJson([
 			'album_id' => null,
 			'title' => 'gaming',
-			'type' => AbstractTestCase::MIME_TYPE_VID_MP4,
+			'type' => TestConstants::MIME_TYPE_VID_MP4,
 			'size_variants' => [
 				'original' => [
 					'width' => 0,
@@ -431,13 +432,10 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 		// that it isn't called accidentally.
 		// As a second-best approach, we check at least for the existence
 		// of an error message in the log.
-		$logCount = DB::table('logs')
-			->where('text', 'like', '%FFmpeg%disabled%')
-			->count();
-		$this->assertEquals(1, $logCount);
+		self::assertNotEmpty(file_get_contents(storage_path('logs/notice-' . date('Y-m-d') . '.log')));
 
-		Configs::set(self::CONFIG_HAS_FFMPEG, $hasFFMpeg);
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
+		Configs::set(TestConstants::CONFIG_HAS_FFMPEG, $hasFFMpeg);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
 	}
 
 	/**
@@ -449,11 +447,11 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 	 */
 	public function testPhotoUploadWithUndefinedExifTag(): void
 	{
-		$hasExifTool = Configs::getValueAsBool(self::CONFIG_HAS_EXIF_TOOL);
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, false);
+		$hasExifTool = Configs::getValueAsBool(TestConstants::CONFIG_HAS_EXIF_TOOL);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, false);
 
 		$response = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_UNDEFINED_EXIF_TAG)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_UNDEFINED_EXIF_TAG)
 		);
 		$response->assertJson([
 			'album_id' => null,
@@ -464,7 +462,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			'make' => 'Canon',
 			'model' => 'Canon EOS 100D',
 			'shutter' => '1/250 s',
-			'type' => AbstractTestCase::MIME_TYPE_IMG_JPEG,
+			'type' => TestConstants::MIME_TYPE_IMG_JPEG,
 			'size_variants' => [
 				'thumb' => ['width' => 200, 'height' => 200],
 				'thumb2x' => ['width' => 400, 'height' => 400],
@@ -476,13 +474,13 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			],
 		]);
 
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
 	}
 
 	public function testUploadMultibyteTitle(): void
 	{
 		$id = $this->photos_tests->upload(
-			AbstractTestCase::createUploadedFile(AbstractTestCase::SAMPLE_FILE_SUNSET_IMAGE)
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_SUNSET_IMAGE)
 		)->offsetGet('id');
 
 		$response = $this->photos_tests->get($id);
@@ -501,7 +499,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			'aperture' => 'f/8.0',
 			'shutter' => '1/320 s',
 			'focal' => '200 mm',
-			'type' => AbstractTestCase::MIME_TYPE_IMG_JPEG,
+			'type' => TestConstants::MIME_TYPE_IMG_JPEG,
 			'size_variants' => [
 				'small' => [
 					'width' => 202,
@@ -522,9 +520,93 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 
 	public function testUploadMultibyteTitleWithoutExifTool(): void
 	{
-		$hasExifTool = Configs::getValueAsBool(self::CONFIG_HAS_EXIF_TOOL);
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, false);
+		$hasExifTool = Configs::getValueAsBool(TestConstants::CONFIG_HAS_EXIF_TOOL);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, false);
 		$this->testUploadMultibyteTitle();
-		Configs::set(self::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
+		Configs::set(TestConstants::CONFIG_HAS_EXIF_TOOL, $hasExifTool);
+	}
+
+	/**
+	 * Test the upload of a photo without Exif when the use of file last modified time is enabled.
+	 * Expected result is that import succeeds and taken at property has the correct value.
+	 *
+	 * @return void
+	 */
+	public function testTakenAtForPhotoUploadWithoutExif(): void
+	{
+		$useLastModifiedDate = Configs::getValueAsBool(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF);
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, true);
+
+		$response = $this->photos_tests->upload(
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_WITHOUT_EXIF)
+		);
+		$response->assertJson([
+			'taken_at' => '2023-03-14T20:05:03+00:00',
+			'taken_at_orig_tz' => '+00:00',
+		]);
+
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, $useLastModifiedDate);
+	}
+
+	/**
+	 * Test the upload of a photo without Exif when the use of file last modified time is enabled and the value is set to 0.
+	 * Expected result is that import proceeds and taken at is set to 1st Jan 1970.
+	 *
+	 * @return void
+	 */
+	public function testTakenAtForPhotoUploadWithoutExif2(): void
+	{
+		$useLastModifiedDate = Configs::getValueAsBool(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF);
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, true);
+
+		$response = $this->photos_tests->upload(
+			file: AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_WITHOUT_EXIF),
+			fileLastModifiedTime: 0
+		);
+		$response->assertJson([
+			'taken_at' => '1970-01-01T00:00:00+00:00',
+			'taken_at_orig_tz' => '+00:00',
+		]);
+
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, $useLastModifiedDate);
+	}
+
+	/**
+	 * Test the upload of a photo without Exif when the use of file last modified time is disabled.
+	 * Expected result is that import proceeds and taken at has no value.
+	 *
+	 * @return void
+	 */
+	public function testTakenAtForPhotoUploadWithoutExif3(): void
+	{
+		$response = $this->photos_tests->upload(
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_WITHOUT_EXIF)
+		);
+		$response->assertJson([
+			'taken_at' => null,
+			'taken_at_orig_tz' => null,
+		]);
+	}
+
+	/**
+	 * Test the upload of a photo with Exif when the use of file last modified time is enabled.
+	 * Expected result is that import succeeds and taken at is set to the value from Exif.
+	 *
+	 * @return void
+	 */
+	public function testTakenAtForPhotoUploadWithExif(): void
+	{
+		$useLastModifiedDate = Configs::getValueAsBool(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF);
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, true);
+
+		$response = $this->photos_tests->upload(
+			AbstractTestCase::createUploadedFile(TestConstants::SAMPLE_FILE_NIGHT_IMAGE)
+		);
+		$response->assertJson([
+			'taken_at' => '2019-06-01T01:28:25+02:00',
+			'taken_at_orig_tz' => '+02:00',
+		]);
+
+		Configs::set(TestConstants::CONFIG_USE_LAST_MODIFIED_DATE_WHEN_NO_EXIF, $useLastModifiedDate);
 	}
 }

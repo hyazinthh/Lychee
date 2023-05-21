@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Models;
 
+use App\DTO\AlbumProtectionPolicy;
+use App\Http\Resources\Collections\PhotoCollectionResource;
 use App\Http\Resources\Rights\AlbumRightsResource;
 use App\Http\Resources\Traits\WithStatus;
 use App\Models\TagAlbum;
@@ -41,7 +43,7 @@ class TagAlbumResource extends JsonResource
 			'show_tags' => $this->resource->show_tags,
 
 			// children
-			'photos' => PhotoResource::collection($this->whenLoaded('photos')),
+			'photos' => PhotoCollectionResource::make($this->whenLoaded('photos')),
 
 			// thumb
 			'thumb' => $this->resource->thumb,
@@ -53,7 +55,7 @@ class TagAlbumResource extends JsonResource
 			'min_taken_at' => $this->resource->max_taken_at?->toIso8601String(),
 
 			// security
-			'policy' => $this->resource->policy,
+			'policy' => AlbumProtectionPolicy::ofBaseAlbum($this->resource),
 			'rights' => AlbumRightsResource::make($this->resource)->toArray($request),
 		];
 	}

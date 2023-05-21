@@ -12,6 +12,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Safe\Exceptions\InfoException;
+use function Safe\filemtime;
 use function Safe\set_time_limit;
 use Symfony\Component\Console\Exception\ExceptionInterface as SymfonyConsoleException;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -105,7 +106,7 @@ class Takedate extends Command
 
 			// For faster iteration we eagerly load the original size variant,
 			// but only the original size variant
-			$photoQuery = Photo::with(['size_variants' => function (HasMany $r) {
+			$photoQuery = Photo::query()->with(['size_variants' => function (HasMany $r) {
 				$r->where('type', '=', SizeVariantType::ORIGINAL);
 			}]);
 
@@ -144,7 +145,7 @@ class Takedate extends Command
 				$this->progressBar->advance();
 				$localFile = $photo->size_variants->getOriginal()->getFile()->toLocalFile();
 
-				$info = Extractor::createFromFile($localFile);
+				$info = Extractor::createFromFile($localFile, filemtime($localFile->getRealPath()));
 				if ($info->taken_at !== null) {
 					// Note: `equalTo` only checks if two times indicate the same
 					// instant of time on the universe's timeline, i.e. equality

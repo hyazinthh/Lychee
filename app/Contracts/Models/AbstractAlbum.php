@@ -2,7 +2,9 @@
 
 namespace App\Contracts\Models;
 
+use App\Models\AccessPermission;
 use App\Models\Extensions\Thumb;
+use App\Models\Photo;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,13 +24,13 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * See {@link \App\Models\Extensions\BaseAlbum} for the common interface of
  * all models which are persisted to DB.
  *
- * @property string     $id
- * @property string     $title
- * @property Collection $photos
- * @property Thumb|null $thumb
- * @property bool       $is_public
- * @property bool       $grants_download
- * @property bool       $grants_full_photo_access
+ * @property string                           $id
+ * @property string                           $title
+ * @property Collection<int,Photo>            $photos
+ * @property Thumb|null                       $thumb
+ * @property AccessPermission|null            $current_permissions
+ * @property AccessPermission|null            $public_permissions
+ * @property Collection<int,AccessPermission> $access_permissions
  */
 interface AbstractAlbum extends \JsonSerializable, Arrayable, Jsonable
 {

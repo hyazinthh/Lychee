@@ -478,7 +478,6 @@ return [
 			],
 
 			/* followings are only work for `script` and `style` related directives */
-
 			'unsafe-inline' => false,
 
 			'unsafe-eval' => false,

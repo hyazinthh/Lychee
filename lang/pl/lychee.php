@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Informacje techniczne',
 	'DIAGNOSTICS_GET_SIZE' => 'Analiza miejsca na dysku',
 	'LOGS' => 'Logi',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Wyloguj',
 	'UPDATE_AVAILABLE' => 'Dostępna aktualizacja!',
 	'MIGRATION_AVAILABLE' => 'Dostępna migracja!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'data utworzenia',
 	'SORT_ALBUM_SELECT_2' => 'tytuł',
 	'SORT_ALBUM_SELECT_3' => 'opis',
-	'SORT_ALBUM_SELECT_4' => 'publiczny',
 	'SORT_ALBUM_SELECT_5' => 'Latest Take Date',
 	'SORT_ALBUM_SELECT_6' => 'Oldest Take Date',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Zmień język na:',
 	'LANG_TITLE' => 'Zmień język',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

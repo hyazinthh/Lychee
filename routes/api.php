@@ -148,16 +148,8 @@ Route::post('/Diagnostics::get', [Administration\DiagnosticsController::class, '
 Route::post('/Diagnostics::getSize', [Administration\DiagnosticsController::class, 'getSize']);
 
 /**
- * LOGS.
- */
-Route::post('/Logs::list', [Administration\LogController::class, 'list']);
-Route::post('/Logs::clear', [Administration\LogController::class, 'clear']);
-Route::post('/Logs::clearNoise', [Administration\LogController::class, 'clearNoise']);
-
-/**
  * SETTINGS.
  */
-Route::post('/Settings::setLogin', [Administration\SettingsController::class, 'setLogin']);
 Route::post('/Settings::setSorting', [Administration\SettingsController::class, 'setSorting']);
 Route::post('/Settings::setLang', [Administration\SettingsController::class, 'setLang']);
 Route::post('/Settings::setLayout', [Administration\SettingsController::class, 'setLayout']);
@@ -179,6 +171,7 @@ Route::post('/Settings::setOverlayType', [Administration\SettingsController::cla
 Route::post('/Settings::setNSFWVisible', [Administration\SettingsController::class, 'setNSFWVisible']);
 Route::post('/Settings::setDropboxKey', [Administration\SettingsController::class, 'setDropboxKey']);
 Route::post('/Settings::setNewPhotosNotification', [Administration\SettingsController::class, 'setNewPhotosNotification']);
+Route::post('/Settings::setSmartAlbumVisibility', [Administration\SettingsController::class, 'setSmartAlbumVisibility']);
 
 /**
  * UPDATE.

@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Διαγνωστικά',
 	'DIAGNOSTICS_GET_SIZE' => 'Request space usage',
 	'LOGS' => 'Εμφάνιση Καταγραφών',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Αποσύνδεση',
 	'UPDATE_AVAILABLE' => 'Διαθέσιμη Ενημέρωση!',
 	'MIGRATION_AVAILABLE' => 'Migration available!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Ημερομηνία Δημιουργίας',
 	'SORT_ALBUM_SELECT_2' => 'Τίτλος',
 	'SORT_ALBUM_SELECT_3' => 'Περιγραφή',
-	'SORT_ALBUM_SELECT_4' => 'Δημόσιο',
 	'SORT_ALBUM_SELECT_5' => 'Νεότερη Ημερομηνία Λήψης',
 	'SORT_ALBUM_SELECT_6' => 'Παλαιότερη Ημερομηνία Λήψης',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Αλλαγή γλώσσας του Lychee για:',
 	'LANG_TITLE' => 'Αλλαγή Γλώσσας',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

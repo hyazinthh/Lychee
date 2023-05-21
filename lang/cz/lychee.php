@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Diagnostika',
 	'DIAGNOSTICS_GET_SIZE' => 'Request space usage',
 	'LOGS' => 'Protokoly',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Odhlásit se',
 	'UPDATE_AVAILABLE' => 'Update je k dispozici!',
 	'MIGRATION_AVAILABLE' => 'Migration available!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'Data vytvoření',
 	'SORT_ALBUM_SELECT_2' => 'Názvu',
 	'SORT_ALBUM_SELECT_3' => 'Popisu',
-	'SORT_ALBUM_SELECT_4' => 'Stavu zveřejnění',
 	'SORT_ALBUM_SELECT_5' => 'Nejmladšího data snímku',
 	'SORT_ALBUM_SELECT_6' => 'Nejstaršího data snímku',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Změnit jazyk Lychee na:',
 	'LANG_TITLE' => 'Změnit jazyk',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Vlastní CSS:',
 	'CSS_TITLE' => 'Změnit CSS',

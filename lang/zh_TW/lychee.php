@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => '診斷',
 	'DIAGNOSTICS_GET_SIZE' => '請求空間使用',
 	'LOGS' => '查看日誌',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => '登出',
 	'UPDATE_AVAILABLE' => '可用更新！',
 	'MIGRATION_AVAILABLE' => '可進行轉移！',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => '創建時間',
 	'SORT_ALBUM_SELECT_2' => '標題',
 	'SORT_ALBUM_SELECT_3' => '描述',
-	'SORT_ALBUM_SELECT_4' => '公開',
 	'SORT_ALBUM_SELECT_5' => '最新',
 	'SORT_ALBUM_SELECT_6' => '最老',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => '將Lychee語言更改為：',
 	'LANG_TITLE' => '改變語言',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

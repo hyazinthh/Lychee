@@ -29,8 +29,6 @@ return [
 	'DIAGNOSTICS' => 'Диагностика',
 	'DIAGNOSTICS_GET_SIZE' => 'Request space usage',
 	'LOGS' => 'Логи',
-	'CLEAN_LOGS' => 'Clean Noise',
-	'CLEAR' => 'Clear',
 	'SIGN_OUT' => 'Выход',
 	'UPDATE_AVAILABLE' => 'Доступно обновление!',
 	'MIGRATION_AVAILABLE' => 'Migration available!',
@@ -336,7 +334,6 @@ return [
 	'SORT_ALBUM_SELECT_1' => 'даты создания',
 	'SORT_ALBUM_SELECT_2' => 'заголовка',
 	'SORT_ALBUM_SELECT_3' => 'описания',
-	'SORT_ALBUM_SELECT_4' => 'доступности',
 	'SORT_ALBUM_SELECT_5' => 'свежайшего фото',
 	'SORT_ALBUM_SELECT_6' => 'старейшего фото',
 
@@ -359,6 +356,10 @@ return [
 
 	'LANG_TEXT' => 'Change Lychee language to:',
 	'LANG_TITLE' => 'Change Language',
+
+	'SETTING_RECENT_PUBLIC_TEXT' => 'Make "Recent" smart album accessible to anonymous users',
+	'SETTING_STARRED_PUBLIC_TEXT' => 'Make "Starred" smart album accessible to anonymous users',
+	'SETTING_ONTHISDAY_PUBLIC_TEXT' => 'Make "On This Day" smart album accessible to anonymous users',
 
 	'CSS_TEXT' => 'Personalize CSS:',
 	'CSS_TITLE' => 'Change CSS',

@@ -3,10 +3,10 @@
 namespace App\Relations;
 
 use App\DTO\PhotoSortingCriterion;
+use App\Eloquent\FixedQueryBuilder;
 use App\Enum\ColumnSortingPhotoType;
 use App\Enum\OrderSortingType;
 use App\Models\Album;
-use App\Models\Extensions\FixedQueryBuilder;
 use App\Models\Extensions\Thumb;
 use App\Models\Photo;
 use App\Policies\AlbumPolicy;
@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as BaseBuilder;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -182,6 +181,7 @@ class HasAlbumThumb extends Relation
 			->orderBy('photos.' . ColumnSortingPhotoType::IS_STARRED->value, OrderSortingType::DESC->value)
 			->orderBy('photos.' . $this->sorting->column->value, $this->sorting->order->value)
 			->limit(1);
+
 		if (Auth::user() === null) {
 		// if (Auth::user()?->may_administrate !== true) {
 			$bestPhotoIDSelect->where(function (Builder $query2) {
@@ -193,22 +193,16 @@ class HasAlbumThumb extends Relation
 			});
 		}
 
-		$user = Auth::user();
-
-		$album2Cover = function (BaseBuilder $builder) use ($bestPhotoIDSelect, $albumKeys, $user) {
+		$album2Cover = function (BaseBuilder $builder) use ($bestPhotoIDSelect, $albumKeys) {
 			$builder
 				->from('albums as covered_albums')
 				->join('base_albums', 'base_albums.id', '=', 'covered_albums.id');
-			if ($user !== null) {
-				$builder->leftJoin(
-					'user_base_album',
-					function (JoinClause $join) use ($user) {
-						$join
-							->on('user_base_album.base_album_id', '=', 'base_albums.id')
-							->where('user_base_album.user_id', '=', $user->id);
-					}
-				);
-			}
+
+			$this->albumQueryPolicy->joinSubComputedAccessPermissions(
+				query: $builder,
+				second: 'base_albums.id'
+			);
+
 			$builder->select(['covered_albums.id AS album_id'])
 				->addSelect(['photo_id' => $bestPhotoIDSelect])
 				->whereIn('covered_albums.id', $albumKeys);
@@ -262,7 +256,7 @@ class HasAlbumThumb extends Relation
 	public function match(array $models, Collection $results, $relation): array
 	{
 		$dictionary = $results->mapToDictionary(function ($result) {
-			return [$result->covered_album_id => $result];
+			return [$result->covered_album_id => $result]; // @phpstan-ignore-line
 		})->all();
 
 		// Once we have the dictionary we can simply spin through the parent models to
