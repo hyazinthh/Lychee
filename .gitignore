@@ -57,3 +57,5 @@ aliases
 
 # Building stuff for releaseses
 Lychee/*
+
+composer.phar
