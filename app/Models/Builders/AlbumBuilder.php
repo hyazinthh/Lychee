@@ -177,7 +177,8 @@ class AlbumBuilder extends NSQueryBuilder
 	 */
 	private function applyVisibilityConditioOnSubalbums(Builder $countQuery, AlbumQueryPolicy $albumQueryPolicy): Builder
 	{
-		if (Auth::user()?->may_administrate === true) {
+		// if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
 			return $countQuery;
 		}
 
@@ -231,7 +232,8 @@ class AlbumBuilder extends NSQueryBuilder
 	 */
 	private function applyVisibilityConditioOnPhotos(Builder $countQuery, AlbumQueryPolicy $albumQueryPolicy): Builder
 	{
-		if (Auth::user()?->may_administrate === true) {
+		// if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
 			return $countQuery;
 		}
 

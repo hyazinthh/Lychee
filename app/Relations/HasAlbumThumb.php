@@ -187,7 +187,8 @@ class HasAlbumThumb extends Relation
 			->orderBy('photos.' . $this->sorting->column->value, $this->sorting->order->value)
 			->limit(1);
 
-		if (Auth::user()?->may_administrate !== true) {
+		// if (Auth::user()?->may_administrate !== true) {
+		if (Auth::user() === null) {
 			$bestPhotoIDSelect->where(function (Builder $query2) {
 				$this->photoQueryPolicy->appendSearchabilityConditions(
 					$query2->getQuery(),
@@ -210,7 +211,8 @@ class HasAlbumThumb extends Relation
 			$builder->select(['covered_albums.id AS album_id'])
 				->addSelect(['photo_id' => $bestPhotoIDSelect])
 				->whereIn('covered_albums.id', $albumKeys);
-			if (Auth::user()?->may_administrate !== true) {
+			// if (Auth::user()?->may_administrate !== true) {
+			if (Auth::user() === null) {
 				$builder->where(function (BaseBuilder $q) {
 					$this->albumQueryPolicy->appendAccessibilityConditions($q);
 				});

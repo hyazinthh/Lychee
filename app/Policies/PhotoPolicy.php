@@ -9,7 +9,7 @@ use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-class PhotoPolicy extends BasePolicy
+class PhotoPolicy extends PermissiveBasePolicy
 {
 	protected AlbumPolicy $albumPolicy;
 

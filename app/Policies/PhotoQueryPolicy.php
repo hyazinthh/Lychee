@@ -45,7 +45,8 @@ class PhotoQueryPolicy
 	{
 		$this->prepareModelQueryOrFail($query, false, true);
 
-		if (Auth::user()?->may_administrate === true) {
+		// if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
 			return $query;
 		}
 
@@ -106,7 +107,8 @@ class PhotoQueryPolicy
 				->where('albums._rgt', '<=', $origin->_rgt);
 		}
 
-		if (Auth::user()?->may_administrate === true) {
+		// if (Auth::user()?->may_administrate === true) {
+		if (Auth::user() !== null) {
 			return $query;
 		}
 

@@ -34,7 +34,8 @@ class Notify
 		}
 
 		// Admin user is always notified
-		$users = User::query()->where('may_administrate', '=', true)->get();
+		// $users = User::query()->where('may_administrate', '=', true)->get();
+		$users = User::query()->get();
 
 		$album = $photo->album;
 		if ($album !== null) {
