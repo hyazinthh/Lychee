@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
 	 */
 	protected function schedule(Schedule $schedule): void
 	{
-		$schedule->command('lychee:photos_added_notification')->weekly();
+		$schedule->command('lychee:photos_added_notification')->dailyAt('02:55');
 	}
 
 	/**
