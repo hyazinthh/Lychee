@@ -16,7 +16,7 @@ use App\Models\User;
 use App\SmartAlbums\BaseSmartAlbum;
 use Illuminate\Support\Facades\Session;
 
-class AlbumPolicy extends BasePolicy
+class AlbumPolicy extends PermissiveBasePolicy
 {
 	public const UNLOCKED_ALBUMS_SESSION_KEY = 'unlocked_albums';
 

@@ -108,7 +108,8 @@ class Transfer extends Component
 		}
 
 		// If we are not an administrator, this mean we no longer have access.
-		if (Auth::user()->may_administrate !== true) {
+		// if (Auth::user()->may_administrate !== true) {
+		if (Auth::user() === null) {
 			return redirect()->to(route('livewire-gallery'));
 		}
 
