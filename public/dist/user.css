@@ -1,0 +1,13 @@
+/* Sharing button in main menu */
+#lychee_left_menu > #button_sharing { display:none; }
+
+/* Album top menu customization */
+#button_visibility_album { display:none !important; }
+#button_sharing_album_users { display:none !important; }
+#button_nsfw_album { display:none !important; }
+
+/* Photo top menu customization */
+#button_visibility { display:none !important; }
+
+/* Wrap album titles */
+.album .overlay h1 { white-space: unset; text-overflow: unset; overflow: unset; }
