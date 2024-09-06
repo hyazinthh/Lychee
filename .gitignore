@@ -50,3 +50,5 @@ aliases
 Lychee/*
 
 composer.phar
+public/.user.ini
+dkim_private.pem
