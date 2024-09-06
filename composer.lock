@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8674432987412fffb5c4dbacd2a42b27",
+    "content-hash": "31017834debf131292aae96e1b5e0016",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -5940,6 +5940,58 @@
                 "source": "https://github.com/kawax/socialite-mastodon/tree/1.4.4"
             },
             "time": "2024-04-04T07:57:07+00:00"
+        },
+        {
+            "name": "simonschaufi/laravel-dkim",
+            "version": "v3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonschaufi/laravel-dkim.git",
+                "reference": "0fba8bab1fdd1e57129d3e63b130f74c3f944b21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simonschaufi/laravel-dkim/zipball/0fba8bab1fdd1e57129d3e63b130f74c3f944b21",
+                "reference": "0fba8bab1fdd1e57129d3e63b130f74c3f944b21",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^9.0 || ^10.0 || ^11.0",
+                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
+                "illuminate/mail": "^9.0 || ^10.0 || ^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SimonSchaufi\\LaravelDKIM\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Schaufelberger",
+                    "email": "simonschaufi+dkim@gmail.com"
+                }
+            ],
+            "description": "Laravel package for signing outgoing messages with DKIM.",
+            "support": {
+                "issues": "https://github.com/simonschaufi/laravel-dkim/issues",
+                "source": "https://github.com/simonschaufi/laravel-dkim/tree/v3.4.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/simonschaufi/10",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/simonschaufi",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-05-16T12:34:09+00:00"
         },
         {
             "name": "socialiteproviders/amazon",
@@ -14360,5 +14412,5 @@
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
