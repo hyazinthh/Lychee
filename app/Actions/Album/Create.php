@@ -17,6 +17,7 @@ use App\Exceptions\UnauthenticatedException;
 use App\Exceptions\UnexpectedException;
 use App\Models\AccessPermission;
 use App\Models\Album;
+use App\Models\User;
 use App\Repositories\ConfigManager;
 
 class Create
@@ -101,7 +102,11 @@ class Create
 			$album->access_permissions()->saveMany($this->copyPermission($parent_album));
 		}
 
-		$this->grantFullPermissionsToNewOwner($album);
+		// Share with every user
+		foreach (User::all() as $user) {
+			$access_perm = AccessPermission::withGrantFullPermissionsToUser($user->id);
+			$album->access_permissions()->save($access_perm);
+		}
 	}
 
 	/**
