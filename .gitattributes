@@ -2,6 +2,9 @@
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
+node_modules/** binary
+public/build/** binary
+public/embed/** binary
 public/dist/**/* binary
 public/dist/*.js binary
 public/dist/*.css binary
