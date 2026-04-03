@@ -1,0 +1,1 @@
+import{Ot as e,Tt as t,Ut as n,jt as r,yn as i}from"./primevue-B1azraZ3.js";var a=[`xlink:href`],o=r({__name:`MiniIcon`,props:{class:{},fill:{},icon:{}},setup(r){let o=r;return(r,s)=>(n(),e(`svg`,{class:i(`inline-block `+(o.fill??`fill-neutral-400`)+` `+(o.class??``))},[t(`use`,{"xlink:href":`#`+o.icon},null,8,a)],2))}});export{o as t};

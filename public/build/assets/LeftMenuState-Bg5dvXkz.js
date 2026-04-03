@@ -1,0 +1,1 @@
+import{n as e}from"./pinia-D0lokQcI.js";var t=e(`leftmenu-store`,{state:()=>({left_menu_open:!1,initData:void 0}),actions:{toggleLeftMenu(){this.left_menu_open=!this.left_menu_open}}});export{t};

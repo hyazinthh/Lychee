@@ -1,0 +1,1 @@
+import{n as e,t}from"./constants-C9L1i-cJ.js";var n={clearCount(){e.storage.remove(`users::count`)},count(){return e.get(`${t.getApiUrl()}Users::count`,{data:{},id:`users::count`})},get(){return e.get(`${t.getApiUrl()}Users`,{data:{}})}};export{n as t};
