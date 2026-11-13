@@ -1,0 +1,1 @@
+.date-wrapper{grid-template-rows:0fr;transition:grid-template-rows .25s ease-out;display:grid}.date-wrapper:is(:where(.group):hover *){grid-template-rows:1fr}.p-scrolltop{border:none}

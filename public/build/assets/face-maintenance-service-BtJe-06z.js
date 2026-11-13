@@ -1,0 +1,1 @@
+import{n as e}from"./axios-5rWrasgO.js";import{t}from"./constants-BX9G_2p5.js";var n={getFaces(n={}){return e.get(`${t.getApiUrl()}Face/maintenance`,{params:n,data:{}})},batchDismiss(n){return e.post(`${t.getApiUrl()}Face/maintenance/batch-dismiss`,{face_ids:n})},batchAssign(n,r){return e.post(`${t.getApiUrl()}Face/maintenance/batch-assign`,{face_ids:n,...r})}};export{n as t};

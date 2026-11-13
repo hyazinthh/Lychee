@@ -1,0 +1,1 @@
+import{a as e}from"./laravel-vue-i18n-B04WNqUq.js";function t(t){return t.event===`held`?e(`moderation.event_held`):e(`moderation.event_approved`)}function n(t){return t.source===`upload`?e(`moderation.source_upload`):t.source===`nsfw_scan`?e(`moderation.source_nsfw_scan`):t.username??`—`}export{t as n,n as t};

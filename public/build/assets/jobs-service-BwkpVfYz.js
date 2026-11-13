@@ -1,0 +1,1 @@
+import{n as e}from"./axios-5rWrasgO.js";import{t}from"./constants-BX9G_2p5.js";var n={list(){return e.get(`${t.getApiUrl()}Jobs`,{data:{}})}};export{n as t};

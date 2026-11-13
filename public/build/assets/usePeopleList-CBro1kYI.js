@@ -1,0 +1,1 @@
+import{bt as e}from"./@dayflow-DyTAXT95.js";import{t}from"./people-service-DyoM2lqJ.js";function n(){let n=e([]),r=e(!1);function i(e,r){return t.getPeople(e).then(t=>{if(r.push(...t.data.data),e<t.data.last_page)return i(e+1,r);n.value=r})}function a(){return r.value=!0,i(1,[]).finally(()=>{r.value=!1})}return{people:n,loading:r,load:a}}export{n as t};

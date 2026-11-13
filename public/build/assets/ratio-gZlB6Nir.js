@@ -1,0 +1,1 @@
+function e(e){return e.map(function(e){let t=e.dataset?.height??1,n=e.dataset?.width??1;return t>0?n/t:1})}export{e as t};

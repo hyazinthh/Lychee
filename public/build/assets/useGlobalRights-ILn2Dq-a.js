@@ -1,0 +1,1 @@
+import{r as e}from"./pinia-DLTMhDYr.js";import{L as t}from"./useGalleryLock-CkIsqjrc.js";function n(){let n=t();n.ensureLoaded().catch(()=>{});let{rights:r}=e(n);return{rights:r}}export{n as t};

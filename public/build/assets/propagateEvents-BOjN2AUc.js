@@ -1,0 +1,1 @@
+function e(e){function t(t,n){e(`clicked`,t,n)}function n(t,n){e(`contexted`,t,n)}return{propagateClicked:t,propagateContexted:n}}export{e as t};

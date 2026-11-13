@@ -1,0 +1,1 @@
+import{n as e}from"./axios-5rWrasgO.js";import{t}from"./constants-BX9G_2p5.js";var n={getStats(n=!1){return e.get(`${t.getApiUrl()}Admin/Stats`,{params:{force:n?1:void 0},data:{}})},getUpdateStatus(){return e.get(`${t.getApiUrl()}Admin/UpdateStatus`,{data:{}})}};export{n as t};

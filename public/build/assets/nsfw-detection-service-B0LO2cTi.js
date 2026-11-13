@@ -1,0 +1,1 @@
+import{n as e}from"./axios-5rWrasgO.js";import{t}from"./constants-BX9G_2p5.js";var n={bulkScan(n){return e.post(`${t.getApiUrl()}NsfwDetection/bulk-scan`,{album_id:n??null})}};export{n as t};

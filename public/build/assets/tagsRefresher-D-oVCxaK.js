@@ -1,0 +1,1 @@
+import{t as e}from"./tags-service-dl3HQ3_8.js";import{bt as t}from"./@dayflow-DyTAXT95.js";function n(){let n=t(void 0),r=t(!1);function i(){return n.value=void 0,e.list().then(e=>{n.value=e.data.tags,r.value=e.data.can_edit}).catch(e=>{n.value??=[],console.error(`Error loading tags:`,e)})}return{tags:n,canEdit:r,load:i}}export{n as t};

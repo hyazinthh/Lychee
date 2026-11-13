@@ -1,0 +1,1 @@
+function e(e,t,n,r){e.style.height=n.containerHeight+`px`,t.forEach((e,t)=>{let i=n.boxes[t];i?(e.style=e.style??{},e.style.top=i.top+`px`,e.style.width=i.width+`px`,e.style.height=i.height+`px`,e.style[r]=i.left+`px`):console.error(`race!`)})}export{e as t};

@@ -1,0 +1,1 @@
+var e={API_URL:`/api/v2/`,API_URL_V3:`/api/v3/`,BASE_URL:document.querySelector(`base`)?.getAttribute(`href`)||``,getApiUrl(){return this.BASE_URL+this.API_URL},getApiUrlV3(){return this.BASE_URL+this.API_URL_V3}};export{e as t};
